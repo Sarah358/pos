@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - 27017:27017
+
+  pos:
+    image: pos:latest
+    container_name: pos
+    ports:
+      - 9090:8080
+    depends_on:
+      - mongo
