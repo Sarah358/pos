@@ -9,6 +9,6 @@ services:
     image: pos:latest
     container_name: pos
     ports:
-      - 9090:8080
+      - 8080:8080
     depends_on:
       - mongo

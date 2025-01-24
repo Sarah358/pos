@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pos-app-deployment
+  labels:
+    app: pos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pos
+  template:
+    metadata:
+      labels:
+        app: pos
+    spec:
+      containers:
+        - name: pos
+          image: sarah358/pos:latest
+          ports:
+            - containerPort: 8080
