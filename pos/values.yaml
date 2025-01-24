@@ -1,0 +1,6 @@
+replicaCount: 1
+
+image:
+  repository: sarah358/pos:latest
+  pullPolicy: Always
+  tag: ""

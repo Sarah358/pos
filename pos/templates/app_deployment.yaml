@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pos-app-deployment
+  namespace: pos
   labels:
     app: pos
 spec:
@@ -16,7 +17,8 @@ spec:
     spec:
       containers:
         - name: pos
-          image: sarah358/pos:latest
+          image: {{ .Values.image.repository }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
           env:

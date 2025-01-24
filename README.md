@@ -2,11 +2,13 @@
 
 Prerequisites
 
-Install Docker and Docker Compose.
+Install Docker.
 
 Install Minikube.
 
 Install kubectl.
+
+Install helm.
 
 Clone the repository:
 
@@ -20,7 +22,7 @@ Ensure Docker is running on your system.
 
 Build and start the application:
 
-docker-compose up --build
+docker build -t pos-app:latest .
 
 Verify the application is running:
 
@@ -30,7 +32,6 @@ which perfoms write operation in the db as the images below shows
 
 To stop the application:
 
-docker-compose down
 
 Steps to Deploy the Application on Minikube
 
@@ -38,30 +39,26 @@ Minikube Setup Commands
 
 Start Minikube:
 
-minikube start
+**minikube start --driver=docker**
 
 Enable the Minikube Docker environment:
 
-eval $(minikube docker-env)
+Use helm to install the Application:
 
-Build and Deploy the Application
+helm upgrade --install -f pos/values.yaml pos ./pos
 
-Build the Docker image inside Minikube:
+Get kubernetes pods and ensure the Application and Mongo pods are running:
+kubectl get pods -n pos
 
-docker build -t pos-app:latest .
-
-Apply the Kubernetes manifests:
-
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
+Start the Application service to access the App locally:
+minikube service pos-app-service -n pos
 
 Access the Application
 
 Get the Minikube service URL:
 
-minikube service pos-app-service --url
 
-Open the provided URL in your browser to access the application.
+Open the provided URL on postman to access the application.
 
 CI/CD Pipeline
 
@@ -79,16 +76,7 @@ It uses the docker/build-push-action to build and push the image.
 
 Decisions, Assumptions, and Challenges
 
-Decisions
 
-Used Docker Compose for local setup to simplify multi-container orchestration.
 
-Opted for Minikube to emulate a Kubernetes cluster locally.
-
-Chose NodePort for Kubernetes service to simplify local access.
-
-Assumptions
-
-Docker and Minikube are installed and configured on the user's system.
 
 
