@@ -38,6 +38,8 @@
 
 - Use helm to deploy the Application:
 
+`helm install -f pos/values.yaml pos ./pos --create-namespace --namespace pos`
+
 `helm upgrade --install -f pos/values.yaml pos ./pos`
 
 - Get kubernetes pods and ensure the Application and Mongo pods are running:
